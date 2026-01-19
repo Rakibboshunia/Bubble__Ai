@@ -37,7 +37,7 @@ export default function Sidebar() {
       </div>
 
       {/* Menu */}
-      <nav className="flex-1 px-4 space-y-2">
+      <nav className="flex-1 px-4 text- space-y-2">
         {menu.map(({ name, path, icon: Icon }) => (
           <NavLink
             key={name}
@@ -54,7 +54,7 @@ export default function Sidebar() {
       </nav>
 
       {/* Logout */}
-      <button className="flex items-center gap-3 px-6 py-4 hover:bg-white/20">
+      <button className="flex items-center gap-3 px-6 py-4 hover:bg-white/20 cursor-pointer">
         <LogOut size={18} />
         Logout
       </button>
