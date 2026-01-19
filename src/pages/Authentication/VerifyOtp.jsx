@@ -2,19 +2,22 @@ import {
   AuthLayout,
   AuthCard,
   AuthHeader,
+  OTPInput,
   SubmitButton,
 } from "../../components/auth";
 
-export default function PasswordSuccess() {
+export default function VerifyOtp() {
   return (
     <AuthLayout>
       <AuthCard>
         <AuthHeader
           title="Spartacus Bubble"
-          subtitle="Password Updated Successfully!"
+          subtitle="Check your Email"
+          desc="We sent a verification code to your email"
         />
 
-        <SubmitButton text="Login" />
+        <OTPInput />
+        <SubmitButton text="Verify" />
       </AuthCard>
     </AuthLayout>
   );
