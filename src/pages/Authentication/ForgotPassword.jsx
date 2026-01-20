@@ -4,6 +4,7 @@ import {
   AuthHeader,
   TextInput,
   SubmitButton,
+  BackNextButtons,
 } from "../../components/auth";
 
 export default function ForgetPassword() {
@@ -18,7 +19,13 @@ export default function ForgetPassword() {
 
         <form>
           <TextInput label="Email address" />
+
           <SubmitButton text="Continue" />
+
+          <BackNextButtons
+            backTo="/login"
+            nextTo="/verify-otp"
+          />
         </form>
       </AuthCard>
     </AuthLayout>

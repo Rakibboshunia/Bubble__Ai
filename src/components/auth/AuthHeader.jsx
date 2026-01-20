@@ -1,4 +1,5 @@
 import logo from "../../assets/images/S Logo.png";
+import LogoText from "../../assets/images/logoText.png";
 
 export default function AuthHeader({ title, subtitle, desc }) {
   return (
@@ -8,28 +9,28 @@ export default function AuthHeader({ title, subtitle, desc }) {
         <img
           src={logo}
           alt="Spartacus Bubble"
-          className="h-12 w-auto object-contain"
+          className="h-18 w-auto object-contain"
         />
-
-        <p className="mt-1 text-xs font-semibold tracking-wide text-gray-800">
-          SPARTACUS BUBBLE
-        </p>
+        <div className="h-12 w-auto object-contain">
+          <img 
+            src={LogoText} 
+            alt="Logo Tittle" 
+            className="h-16 w-auto object-contain" 
+            />
+        </div>
       </div>
 
-      <h2 className="text-2xl font-semibold text-[#8BC53F] leading-tight">
+      <h2 
+        className="text-4xl font-bold text-[#8BC53F] leading-tight">
         {title}
       </h2>
 
       {subtitle && (
-        <p className="text-[#8BC53F] font-medium leading-tight">
-          {subtitle}
-        </p>
+        <p className="text-[#8BC53F] pt-4 text-2xl font-bold pb-3 leading-tight">{subtitle}</p>
       )}
 
       {desc && (
-        <p className="text-sm text-gray-500 mt-2 leading-relaxed">
-          {desc}
-        </p>
+        <p className="text-sm font-semibold text-gray-500 mt-2 leading-relaxed">{desc}</p>
       )}
     </div>
   );

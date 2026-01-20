@@ -4,6 +4,7 @@ import {
   AuthHeader,
   OTPInput,
   SubmitButton,
+  BackNextButtons,
 } from "../../components/auth";
 
 export default function VerifyOtp() {
@@ -13,11 +14,25 @@ export default function VerifyOtp() {
         <AuthHeader
           title="Spartacus Bubble"
           subtitle="Check your Email"
-          desc="We sent a verification code to your email"
+          desc="We sent a code to your email address.
+          Please check your email for the 6 digit code."
         />
 
         <OTPInput />
+
         <SubmitButton text="Verify" />
+
+        <div className="text-center text-sm text-gray-600">
+          Didn’t receive the code?{" "}
+          <button className="text-[#8BC53F] font-medium hover:underline cursor-pointer">
+            Resend
+          </button>
+        </div>
+
+        <BackNextButtons
+          backTo="/login"
+          nextTo="/new-password"
+        />
       </AuthCard>
     </AuthLayout>
   );
