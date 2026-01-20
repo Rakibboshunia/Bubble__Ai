@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+
 import {
   AuthLayout,
   AuthCard,
@@ -14,13 +15,7 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // ✅ dummy login (for now)
-    localStorage.setItem(
-      "user",
-      JSON.stringify({ role: "ADMIN" })
-    );
-
-    // ✅ redirect to dashboard
+    // UI only login → direct dashboard
     navigate("/dashboard");
   };
 
@@ -34,29 +29,8 @@ export default function Login() {
         />
 
         <form onSubmit={handleSubmit}>
-          <TextInput
-            label="Email address"
-            placeholder="Enter your email"
-          />
-
+          <TextInput label="Email address" placeholder="Enter your email" />
           <PasswordInput label="Password" />
-
-          <div className="flex justify-between items-center text-sm mb-6">
-            <label className="flex gap-2 items-center">
-              <input
-                type="checkbox"
-                className="accent-[#8BC53F] cursor-pointer"
-              />
-              Remember Password
-            </label>
-
-            <span 
-              onClick={() => navigate("/forget-password")}
-              className="underline cursor-pointer">
-              Forget Password?
-            </span>
-          </div>
-
           <SubmitButton text="Sign in" />
         </form>
       </AuthCard>
