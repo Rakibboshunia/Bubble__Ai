@@ -4,7 +4,7 @@ export default function AuthCard({ children }) {
       className="
         bg-white 
         w-full max-w-lg          
-        px-16 py-14              
+        px-16 py-10              
         rounded-2xl
         border border-gray-100
         shadow-[0_12px_35px_rgba(0,0,0,0.09)]
@@ -13,7 +13,7 @@ export default function AuthCard({ children }) {
       "
     >
       {/* 🔹 children spacing control */}
-      <div className="space-y-6">
+      <div className="space-y-4">
         {children}
       </div>
     </div>
