@@ -75,7 +75,7 @@ export default function Employees() {
                     {emp.id}
                   </td>
 
-                  <td className="px-6 py-5 flex items-center gap-3">
+                  <td className="px-6 py-4 flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-linear-to-br from-[#8BC53F] to-green-600 text-white flex items-center justify-center font-bold">
                       {emp.name.charAt(0)}
                     </div>

@@ -1,4 +1,4 @@
-export default function InteractionCard({ item }) {
+export default function DashboardCard({ item }) {
   return (
     <div className="bg-white rounded-xl shadow-md p-4 space-y-3">
       <div className="flex justify-between items-center">

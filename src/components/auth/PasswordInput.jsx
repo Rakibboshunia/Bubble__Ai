@@ -23,7 +23,7 @@ export default function PasswordInput({ label }) {
           className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8BC53F] cursor-pointer"
         >
           <Icon
-            icon={show ? "mdi:eye-off" : "mdi:eye"}
+            icon={!show ? "mdi:eye-off" : "mdi:eye"}
             width={22}
           />
         </button>

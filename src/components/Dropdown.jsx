@@ -26,7 +26,7 @@ export default function Dropdown({ value, options, onChange }) {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-4 bg-white border rounded-md shadow-md z-50 w-35 h-40">
+        <div className="absolute right-0 mt-3 bg-white border rounded-md shadow-md z-50 w-30 h-40">
           {options.map((opt) => (
             <div
               key={opt.value}
@@ -34,7 +34,7 @@ export default function Dropdown({ value, options, onChange }) {
                 onChange(opt.value);
                 setOpen(false);
               }}
-              className={`px-4 py-4 text-md font-bold cursor-pointer hover:bg-[#8BC43D]
+              className={`px-2 py-1.5 text-sm cursor-pointer hover:bg-[#8BC43D]
                 ${opt.value === value ? "font-semibold" : ""}`}
             >
               {opt.label}

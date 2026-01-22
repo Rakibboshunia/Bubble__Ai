@@ -1,95 +1,86 @@
-import InteractionRow from "./InteractionRow";
-import Dropdown from "./Dropdown";
-import DateFilter from "./DateFilter";
-
 export default function InteractionTable({
   data,
-  dateSort,
-  setDateSort,
-  progress,
-  setProgress,
-  bookingType,
-  setBookingType,
-  bookingInfo,
-  setBookingInfo,
+  onView,
+  category,
+  onCategoryChange,
 }) {
   return (
-    <div className="hidden lg:block bg-white rounded-2xl shadow-xl overflow-x-auto">
-      <table className="w-full text-sm">
-        <thead className="bg-gray-50 text-gray-600">
-          <tr>
-            <th className="px-6 py-4 text-left">Interaction ID</th>
-            <th className="px-6 py-4 text-left">Name</th>
-            <th className="px-6 py-4 text-left">Email</th>
-            <th className="px-6 py-4 text-left">Contact</th>
+    <table className="w-full text-md">
+      <thead className="bg-gray-50 text-gray-600 border-b">
+        <tr>
+          {/* CATEGORY WITH DROPDOWN */}
+          <th className="p-6 text-left">
+            <div className="flex items-center gap-2">
+              <span>Category</span>
 
-            {/* DATE CHECKER */}
-            <th className="px-6 py-4 text-left relative">
-              <details className="relative">
-                <summary className="cursor-pointer select-none">
-                  Date
-                </summary>
+              <select
+                value={category}
+                onChange={(e) => onCategoryChange(e.target.value)}
+                className="text-xs px-2 py-1 rounded-md outline-none cursor-pointer border"
+              >
+                <option value="all">All</option>
+                <option value="Phone">Phone</option>
+                <option value="Mail">Mail</option>
+              </select>
+            </div>
+          </th>
 
-                <div className="absolute z-20 mt-2">
-                  <DateFilter
-                    value={dateSort}
-                    onChange={setDateSort}
-                  />
-                </div>
-              </details>
-            </th>
+          <th className="p-6 text-left">ID</th>
+          <th className="p-6 text-left">Type</th>
+          <th className="p-6 text-right">Details</th>
+        </tr>
+      </thead>
 
-            <th className="px-6 py-4 text-left">Assigned By</th>
+      <tbody>
+        {data.map((item, index) => (
+          <tr
+            key={item.id}
+            className={`
+              hover:bg-gray-50 transition
+              border-b
+              ${index === data.length - 1 ? "border-b-0" : ""}
+            `}
+          >
+            <td className="p-6">
+              <span
+                className={`px-3 py-1 rounded-full text-xs font-semibold text-white
+                  ${
+                    item.category === "Phone"
+                      ? "bg-[#8BC43D]"
+                      : "bg-red-500"
+                  }`}
+              >
+                {item.category}
+              </span>
+            </td>
 
-            <th className="px-6 py-4 text-left">
-              <Dropdown
-                value={progress}
-                onChange={setProgress}
-                options={[
-                  { label: "All", value: "All" },
-                  { label: "Confirmed", value: "Confirmed" },
-                  { label: "Need Staff", value: "Need Staff" },
-                  {
-                    label: "Need Human Attention",
-                    value: "Need Human Attention",
-                  },
-                ]}
-              />
-            </th>
+            <td className="p-6">{item.ref}</td>
+            <td className="p-6">{item.type}</td>
 
-            <th className="px-6 py-4 text-left">
-              <Dropdown
-                value={bookingType}
-                onChange={setBookingType}
-                options={[
-                  { label: "All", value: "All" },
-                  { label: "New", value: "New" },
-                  { label: "Existing", value: "Existing" },
-                  { label: "Urgent", value: "Urgent" },
-                ]}
-              />
-            </th>
-
-            <th className="px-6 py-4 text-left">
-              <Dropdown
-                value={bookingInfo}
-                onChange={setBookingInfo}
-                options={[
-                  { label: "All", value: "All" },
-                  { label: "Confirmed", value: "Confirmed" },
-                  { label: "Decline", value: "Decline" },
-                ]}
-              />
-            </th>
+            <td className="px-6 text-right">
+              <button
+                onClick={() => onView(item)}
+                className="
+                  px-4 py-2 rounded-full
+                  bg-[#8BC43D]
+                  text-white text-xs font-semibold
+                  hover:opacity-90 cursor-pointer
+                "
+              >
+                View
+              </button>
+            </td>
           </tr>
-        </thead>
+        ))}
 
-        <tbody>
-          {data.map((item, index) => (
-            <InteractionRow key={index} item={item} />
-          ))}
-        </tbody>
-      </table>
-    </div>
+        {data.length === 0 && (
+          <tr>
+            <td colSpan="4" className="p-10 text-center text-gray-400">
+              No interactions found
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
   );
 }

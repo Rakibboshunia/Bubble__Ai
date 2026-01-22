@@ -1,14 +1,14 @@
-export default function InteractionRow({ item }) {
+export default function DashboardRow({ item }) {
   return (
-    <tr className="hover:bg-[#8BC53F]/5 transition">
-      <td className="px-6 py-4 font-medium">{item.id}</td>
-      <td className="px-6 py-4">{item.name}</td>
-      <td className="px-6 py-4 text-gray-600">{item.email}</td>
-      <td className="px-6 py-4">{item.phone}</td>
-      <td className="px-6 py-4">{item.date}</td>
-      <td className="px-6 py-4">{item.assignedBy}</td>
+    <tr className="hover:bg-[#8BC53F]/5 transition border-b last-border-hidden">
+      <td className="px-6 py-6 font-medium">{item.id}</td>
+      <td className="px-6 py-6">{item.name}</td>
+      <td className="px-6 py-6 text-gray-600">{item.email}</td>
+      <td className="px-6 py-6">{item.phone}</td>
+      <td className="px-6 py-6">{item.date}</td>
+      <td className="px-6 py-6">{item.assignedBy}</td>
 
-      <td className="px-6 py-4">
+      <td className="px-6 py-6">
         <span className="px-3 py-1 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">
           {item.progress}
         </span>
