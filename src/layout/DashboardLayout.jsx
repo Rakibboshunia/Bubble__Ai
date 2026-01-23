@@ -2,8 +2,6 @@ import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
-
-// ✅ react-icons
 import { FiMenu, FiX } from "react-icons/fi";
 
 export default function DashboardLayout() {
@@ -12,24 +10,20 @@ export default function DashboardLayout() {
   return (
     <div className="flex h-screen overflow-hidden">
 
-      {/* ===== DESKTOP SIDEBAR (UNCHANGED) ===== */}
       <aside className="hidden lg:block">
         <Sidebar />
       </aside>
 
-      {/* ===== MOBILE SIDEBAR DRAWER ===== */}
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden">
-          {/* Overlay */}
+  
           <div
             className="absolute inset-0 bg-black/40"
             onClick={() => setOpen(false)}
           />
 
-          {/* Drawer */}
           <aside className="absolute left-0 top-0 h-full w-72 bg-[#8BC43D]">
             
-            {/* ❌ CLOSE ICON */}
             <button
               onClick={() => setOpen(false)}
               className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/20 cursor-pointer"
