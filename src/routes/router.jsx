@@ -36,7 +36,6 @@ export const router = createBrowserRouter([
         element: <Dashboard />,
       },
 
-      /* 🔹 INTERACTIONS */
       {
         path: "interactions",
         children: [
