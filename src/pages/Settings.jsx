@@ -106,7 +106,7 @@ export default function Settings() {
         <div className="mb-6 flex justify-end">
           <button
             onClick={() => setOpenAdd(true)}
-            className="bg-[#8BC53F] text-white font-bold px-4 py-2 rounded-md hover:bg-[#7bb136] transition cursor-pointer"
+            className="bg-[#8BC53F] text-white text-xl font-semibold px-6 py-2 rounded-md hover:bg-[#7bb136] transition cursor-pointer"
           >
             Add
           </button>

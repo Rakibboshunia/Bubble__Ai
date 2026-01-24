@@ -1,95 +1,187 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StatusBadge from "../../components/StatusBadge";
+
+/**
+ * 🔌 FUTURE API SHAPE (example)
+ * GET /interactions/:id
+ */
+const mockFetchEmailInteraction = (id) =>
+  Promise.resolve({
+    id,
+    channel: "Email",
+    agent: "Smith",
+    date: "Tue, Nov 12, 2025",
+    time: "4:25 PM",
+    status: "Declined",
+    interactionType: "Weekly",
+    emails: [
+      {
+        from: "Customer",
+        body: `Hi Smith,
+
+Hope you are doing well.
+
+I need your help.`,
+      },
+      {
+        from: "Agent",
+        body: `Hello Mr,
+
+Hope you are doing well.
+
+I need your help.`,
+      },
+    ],
+  });
 
 export default function EmailInteractionDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [status, setStatus] = useState("Pending");
+
+  // 🔹 API driven state
+  const [interaction, setInteraction] = useState(null);
+  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  /**
+   * 🔁 FETCH INTERACTION (API READY)
+   */
+  useEffect(() => {
+    setLoading(true);
+
+    mockFetchEmailInteraction(id).then((data) => {
+      setInteraction(data);
+      setStatus(data.status);
+      setLoading(false);
+    });
+  }, [id]);
+
+  /**
+   * 🔁 STATUS UPDATE HANDLER (API READY)
+   */
+  const handleStatusChange = (newStatus) => {
+    setStatus(newStatus);
+
+    // 🔴 FUTURE API CALL
+    // PATCH /interactions/:id
+    // fetch(`/api/interactions/${id}`, {
+    //   method: "PATCH",
+    //   body: JSON.stringify({ status: newStatus }),
+    // });
+  };
+
+  if (loading || !interaction) {
+    return (
+      <div className="p-10 text-center text-gray-500">
+        Loading email interaction...
+      </div>
+    );
+  }
 
   return (
-    <div className="p-6 min-h-screen bg-linear-to-br from-blue-50 to-white">
-      <div className="w-full bg-white rounded-3xl shadow-2xl h-[calc(100vh-80px)] flex flex-col lg:flex-row">
+    <div className="p-4 min-h-screen">
+      <div className="w-full bg-white rounded-xl shadow-lg min-h-[calc(100vh-96px)] grid grid-cols-1 lg:grid-cols-3 overflow-hidden">
 
-        {/* LEFT */}
-        <div className="flex-1 p-8 overflow-y-auto">
+        {/* LEFT CONTENT */}
+        <div className="lg:col-span-2 p-10 overflow-y-auto">
 
-          {/* BACK BUTTON */}
+          {/* Back */}
           <button
             onClick={() => navigate("/interactions")}
-            className="inline-flex items-center gap-2 text-sm font-medium text-white hover:text-black mb-6 border rounded-xl p-2 bg-[#8BC43D] cursor-pointer"
+            className="mb-8 text-sm text-white hover:text-black transition border rounded p-1 bg-[#8BC43D] cursor-pointer"
           >
-            ← Back to Interactions
+            ← Back to Interactions List
           </button>
 
-          <h2 className="text-3xl font-bold text-[#8BC43D] mb-1">
-            📧 Email Interaction
-          </h2>
-          <p className="text-sm text-gray-500 mb-8">
-            Interaction ID • {id}
-          </p>
+          {/* Header */}
+          <div className="mb-8">
+            <h2 className="text-3xl font-semibold flex items-center gap-2">
+              📧 Email
+            </h2>
 
-          {/* EMAIL THREAD */}
-          <section className="space-y-6 mb-12">
-            <div className="bg-blue-50 rounded-xl p-5 text-sm">
-              <p className="text-[#8BC43D] font-medium mb-1">Customer</p>
-              <p>I need help with my order.</p>
-            </div>
-
-            <div className="bg-[#8BC43D] text-white rounded-xl p-5 text-sm">
-              <p className="font-medium mb-1">Agent Reply</p>
-              <p>Sure, we are checking it.</p>
-            </div>
-          </section>
-
-          {/* TIMELINE */}
-          <section>
-            <p className="text-sm text-gray-500 mb-4">Activity Timeline</p>
-
-            <div className="relative border-l-2 border-blue-200 pl-6 space-y-6 text-sm">
-              <div>
-                <span className="absolute -left-1.75 top-1 w-3 h-3 bg-[#8BC43D] rounded-full" />
-                <p className="font-medium">Email received</p>
-                <p className="text-gray-400">9:15 AM</p>
-              </div>
-
-              <div>
-                <span className="absolute -left-1.75 top-14 w-3 h-3 bg-[#8BC43D] rounded-full" />
-                <p className="font-medium">Agent replied</p>
-                <p className="text-gray-400">9:20 AM</p>
-              </div>
-
-              <div>
-                <span className="absolute -left-1.75 top-28 w-3 h-3 bg-[#8BC43D] rounded-full" />
-                <p className="font-medium">Status updated</p>
-                <p className="text-gray-400">9:25 AM</p>
-              </div>
-            </div>
-          </section>
-        </div>
-
-        {/* RIGHT – STICKY */}
-        <div className="w-full lg:w-80 p-6 lg:sticky lg:top-6 bg-white flex flex-col justify-between">
-          <div className="space-y-6">
-            <StatusBadge status={status} />
-
-            <select
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-              className="w-full rounded-xl bg-blue-50 px-4 py-3 text-sm outline-none"
-            >
-              <option>Pending</option>
-              <option>Confirmed</option>
-              <option>Declined</option>
-            </select>
-
-            <div className="bg-[#8BC43D] text-white rounded-2xl p-5 text-sm">
-              <p><b>Channel:</b> Email</p>
-              <p><b>Assigned:</b> Smith</p>
+            <div className="flex flex-wrap gap-6 mt-3 text-sm text-gray-500">
+              <span>👤 {interaction.agent}</span>
+              <span>📅 {interaction.date}</span>
+              <span>⏰ {interaction.time}</span>
             </div>
           </div>
 
-          <p className="text-xs text-gray-400 mt-6">
+          {/* Email Thread */}
+          <div className="mb-12">
+            <p className="text-sm font-medium mb-4">Email Details</p>
+
+            <div className="space-y-6">
+              {interaction.emails.map((mail, index) => (
+                <div
+                  key={index}
+                  className={`rounded-2xl p-6 text-sm border
+                    ${
+                      mail.from === "Agent"
+                        ? "bg-gray-50"
+                        : "bg-white shadow-sm"
+                    }`}
+                >
+                  <p className="font-medium mb-2 text-gray-700">
+                    {mail.from}
+                  </p>
+                  <p className="leading-relaxed text-gray-600 whitespace-pre-line">
+                    {mail.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <button className="mt-4 text-sm text-[#8BC43D] hover:underline">
+              more
+            </button>
+          </div>
+        </div>
+
+        {/* RIGHT PANEL */}
+        <div className="border-l bg-gray-50 p-8 flex flex-col justify-between">
+
+          <div className="space-y-6">
+
+            {/* 🔥 STATUS TOGGLE (API READY) */}
+            <div className="flex gap-2 bg-white rounded-full p-1 shadow-inner">
+              <button
+                onClick={() => handleStatusChange("Confirmed")}
+                className={`flex-1 py-2 rounded-full text-sm font-semibold transition cursor-pointer
+                  ${
+                    status === "Confirmed"
+                      ? "bg-[#8BC43D] text-white shadow-md"
+                      : "text-gray-500 hover:bg-gray-100"
+                  }`}
+              >
+                Confirmed
+              </button>
+
+              <button
+                onClick={() => handleStatusChange("Declined")}
+                className={`flex-1 py-2 rounded-full text-sm font-semibold transition cursor-pointer 
+                  ${
+                    status === "Declined"
+                      ? "bg-red-500 text-white shadow-md"
+                      : "text-gray-500 hover:bg-gray-100"
+                  }`}
+              >
+                Declined
+              </button>
+            </div>
+
+            {/* Info Card */}
+            <div className="rounded-2xl bg-gradient-to-br from-[#8BC43D] to-[#6fa82f] text-white p-6 space-y-2 shadow-md">
+              <p className="text-sm">
+                <b>Interaction ID:</b> {interaction.id}
+              </p>
+              <p className="text-sm">
+                <b>Interaction type:</b> {interaction.interactionType}
+              </p>
+            </div>
+          </div>
+
+          <p className="text-xs text-gray-400">
             Last updated just now
           </p>
         </div>

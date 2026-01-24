@@ -5,8 +5,8 @@ import Dropdown from "../components/Dropdown";
 
 export default function Home() {
   const stats = {
-    users: 112,
-    interactions: 112,
+    users: 246,
+    interactions: 175,
   };
 
   const interactionData = {
@@ -133,7 +133,7 @@ export default function Home() {
               data={interactionData[interactionFilter]}
               dataKey="value"
               stroke="#8B5CF6"
-              total={670}
+              total={764}
             />
           </div>
         </div>
@@ -173,7 +173,7 @@ export default function Home() {
               data={bookingData[bookingFilter]}
               dataKey="value"
               stroke="#EF4444"
-              total={670}
+              total={479}
             />
           </div>
         </div>

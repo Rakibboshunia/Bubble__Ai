@@ -1,103 +1,162 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StatusBadge from "../../components/StatusBadge";
+
+/**
+ * FUTURE API SHAPE (example)
+ * GET /interactions/:id
+ */
+const mockFetchInteraction = (id) =>
+  Promise.resolve({
+    id,
+    channel: "Phone",
+    agent: "Smith",
+    datetime: "Tue, Nov 12, 2025 · 4:25 PM",
+    duration: "1 min 20 sec",
+    callType: "Inbound",
+    status: "Confirmed",
+    interactionType: "Weekly",
+    conversation: [
+      { from: "Agent", text: "Hello, how can I help you?" },
+      { from: "Customer", text: "Hello, I need some information." },
+      { from: "Agent", text: "Sure, let me check." },
+    ],
+  });
 
 export default function PhoneInteractionDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [status, setStatus] = useState("Confirmed");
+
+  // 🔹 API-driven state
+  const [interaction, setInteraction] = useState(null);
+  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  /**
+   * 🔌 FETCH INTERACTION (API READY)
+   */
+  useEffect(() => {
+    setLoading(true);
+
+    mockFetchInteraction(id).then((data) => {
+      setInteraction(data);
+      setStatus(data.status); // status decoupled
+      setLoading(false);
+    });
+  }, [id]);
+
+  /**
+   * 🔁 STATUS UPDATE HANDLER (API READY)
+   */
+  const handleStatusChange = (newStatus) => {
+    setStatus(newStatus);
+
+    // FUTURE API CALL
+    // PATCH /interactions/:id
+    // fetch(`/api/interactions/${id}`, { method: "PATCH", body: { status: newStatus }})
+  };
+
+  if (loading || !interaction) {
+    return (
+      <div className="p-10 text-center text-gray-500">
+        Loading interaction...
+      </div>
+    );
+  }
 
   return (
-    <div className="p-6 min-h-screen bg-linear-to-br from-green-50 to-white">
-      <div className="w-full bg-white rounded-3xl shadow-2xl h-[calc(100vh-80px)] flex flex-col lg:flex-row">
+    <div className="p-4 min-h-screen">
+      <div className="w-full bg-white rounded-xl shadow-lg min-h-[calc(100vh-96px)] grid grid-cols-1 lg:grid-cols-3 overflow-hidden">
 
         {/* LEFT */}
-        <div className="flex-1 p-8 overflow-y-auto">
+        <div className="lg:col-span-2 p-10 overflow-y-auto">
 
-          {/* BACK BUTTON */}
+          {/* Back */}
           <button
             onClick={() => navigate("/interactions")}
-            className="inline-flex items-center gap-2 text-sm font-medium text-white hover:text-black mb-6
-            border rounded-xl p-2 bg-[#8BC43D] cursor-pointer"
+            className="mb-8 text-sm text-white hover:text-black border rounded p-1 bg-[#8BC43D] cursor-pointer"
           >
-            ← Back to Interactions
+            ← Back to Interaction List
           </button>
 
-          <h2 className="text-3xl font-bold text-[#8BC43D] mb-1">
-            📞 Phone Interaction
+          {/* Header */}
+          <h2 className="text-3xl font-semibold mb-2">
+            📞 {interaction.channel} Call
           </h2>
-          <p className="text-sm text-gray-500 mb-8">
-            Interaction ID • {id}
-          </p>
 
-          {/* CONVERSATION */}
-          <section className="mb-10">
-            <p className="text-sm text-gray-500 mb-2">Conversation</p>
-            <div className="space-y-3 bg-green-50 rounded-xl p-5 text-sm">
-              <p><b>Agent:</b> Hello, how can I help?</p>
-              <p><b>Customer:</b> I need support.</p>
-              <p><b>Agent:</b> Sure, let me check.</p>
-            </div>
-          </section>
+          <div className="flex flex-wrap gap-6 text-sm text-gray-500 mb-8">
+            <span>👤 {interaction.agent}</span>
+            <span>📅 {interaction.datetime}</span>
+            <span>⏱ {interaction.duration}</span>
+          </div>
 
-          {/* AUDIO */}
-          <section className="mb-10">
-            <p className="text-sm text-gray-500 mb-2">Call Recording</p>
-            <audio controls className="w-full">
-              <source src="/dummy-call.mp3" />
-            </audio>
-          </section>
+          {/* Call Type */}
+          <div className="mb-8">
+            <p className="text-sm text-gray-500">Call Type</p>
+            <p className="font-medium">{interaction.callType}</p>
+          </div>
 
-          {/* TIMELINE */}
-          <section>
-            <p className="text-sm text-gray-500 mb-4">Activity Timeline</p>
-
-            <div className="relative border-l-2 border-green-200 pl-6 space-y-6 text-sm">
-              <div>
-                <span className="absolute -left-1.75 top-1 w-3 h-3 bg-[#8BC43D] rounded-full" />
-                <p className="font-medium">Call received</p>
-                <p className="text-gray-400">10:32 AM</p>
-              </div>
-
-              <div>
-                <span className="absolute -left-1.75 top-14 w-3 h-3 bg-[#8BC43D] rounded-full" />
-                <p className="font-medium">Agent responded</p>
-                <p className="text-gray-400">10:33 AM</p>
-              </div>
-
-              <div>
-                <span className="absolute -left-1.75 top-28 w-3 h-3 bg-[#8BC43D] rounded-full" />
-                <p className="font-medium">Status updated</p>
-                <p className="text-gray-400">10:35 AM</p>
-              </div>
-            </div>
-          </section>
-        </div>
-
-        {/* RIGHT – STICKY */}
-        <div className="w-full lg:w-80 p-6 lg:sticky lg:top-6 bg-white flex flex-col justify-between">
-          <div className="space-y-6">
-            <StatusBadge status={status} />
-
-            <select
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
-              className="w-full rounded-xl bg-green-50 px-4 py-3 text-sm outline-none"
-            >
-              <option>Confirmed</option>
-              <option>Declined</option>
-              <option>Pending</option>
-            </select>
-
-            <div className="bg-[#8BC43D] text-white rounded-2xl p-5 text-sm">
-              <p><b>Type:</b> Weekly</p>
-              <p><b>Agent:</b> Smith</p>
+          {/* Conversation */}
+          <div className="mb-10">
+            <p className="text-sm font-medium mb-3">Call details</p>
+            <div className="space-y-3 text-sm text-gray-700">
+              {interaction.conversation.map((msg, i) => (
+                <p key={i}>
+                  <b>{msg.from}:</b> {msg.text}
+                </p>
+              ))}
             </div>
           </div>
 
-          <p className="text-xs text-gray-400 mt-6">
-            Last updated just now
-          </p>
+          {/* Call Records */}
+          <div>
+            <p className="text-sm font-medium mb-3">Call records</p>
+            <div className="flex items-center gap-4">
+              <button className="w-9 h-9 rounded-full border">⏪</button>
+              <button className="w-11 h-11 rounded-full bg-[#8BC43D] text-white shadow-md">
+                ▶
+              </button>
+              <button className="w-9 h-9 rounded-full border">⏩</button>
+            </div>
+            <div className="mt-4 h-2 bg-gray-200 rounded-full">
+              <div className="h-full w-1/4 bg-[#8BC43D]" />
+            </div>
+          </div>
+        </div>
+
+        {/* RIGHT */}
+        <div className="border-l bg-gray-50 p-8 flex flex-col justify-between">
+
+          <div className="space-y-6">
+
+            {/* 🔥 STATUS TOGGLE (API READY) */}
+            <div className="flex gap-2 bg-white rounded-full p-1 shadow-inner">
+              {["Confirmed", "Declined"].map((s) => (
+                <button
+                  key={s}
+                  onClick={() => handleStatusChange(s)}
+                  className={`flex-1 py-2 rounded-full text-sm font-semibold transition cursor-pointer
+                    ${
+                      status === s
+                        ? s === "Confirmed"
+                          ? "bg-[#8BC43D] text-white shadow"
+                          : "bg-red-500 text-white shadow"
+                        : "text-gray-500 hover:bg-gray-100"
+                    }`}
+                >
+                  {s === "Confirmed" ? "Confirmed" : "Declined"}
+                </button>
+              ))}
+            </div>
+
+            {/* Info */}
+            <div className="rounded-2xl bg-gradient-to-br from-[#8BC43D] to-[#6fa82f] text-white p-6 space-y-2">
+              <p><b>Interaction ID:</b> {interaction.id}</p>
+              <p><b>Interaction type:</b> {interaction.interactionType}</p>
+            </div>
+          </div>
+
+          <p className="text-xs text-gray-400">Last updated just now</p>
         </div>
       </div>
     </div>
