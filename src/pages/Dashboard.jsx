@@ -134,7 +134,6 @@ export default function Interactions() {
         placeholder="Search interaction..."
       />
 
-      {/* 🖥 Desktop — TABLE (UNCHANGED) */}
       <div className="hidden lg:block">
         <InteractionTable
           data={filteredData}
@@ -149,7 +148,6 @@ export default function Interactions() {
         />
       </div>
 
-      {/* 📱 Mobile — ONE INFO PER LINE LIST */}
       <div className="lg:hidden space-y-4">
         {filteredData.map((item, index) => (
           <InteractionLine key={index} item={item} />
