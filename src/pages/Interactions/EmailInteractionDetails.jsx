@@ -1,11 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import StatusBadge from "../../components/StatusBadge";
 
-/**
- * 🔌 FUTURE API SHAPE (example)
- * GET /interactions/:id
- */
+
 const mockFetchEmailInteraction = (id) =>
   Promise.resolve({
     id,
@@ -18,19 +14,11 @@ const mockFetchEmailInteraction = (id) =>
     emails: [
       {
         from: "Customer",
-        body: `Hi Smith,
-
-Hope you are doing well.
-
-I need your help.`,
+        body: `Hi Smith, Hope you are doing well. I need your help.`,
       },
       {
         from: "Agent",
-        body: `Hello Mr,
-
-Hope you are doing well.
-
-I need your help.`,
+        body: `Hello Mr, Hope you are doing well. I need your help.`,
       },
     ],
   });
@@ -39,14 +27,11 @@ export default function EmailInteractionDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // 🔹 API driven state
   const [interaction, setInteraction] = useState(null);
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(true);
 
-  /**
-   * 🔁 FETCH INTERACTION (API READY)
-   */
+ 
   useEffect(() => {
     setLoading(true);
 
@@ -57,18 +42,11 @@ export default function EmailInteractionDetails() {
     });
   }, [id]);
 
-  /**
-   * 🔁 STATUS UPDATE HANDLER (API READY)
-   */
+
   const handleStatusChange = (newStatus) => {
     setStatus(newStatus);
 
-    // 🔴 FUTURE API CALL
-    // PATCH /interactions/:id
-    // fetch(`/api/interactions/${id}`, {
-    //   method: "PATCH",
-    //   body: JSON.stringify({ status: newStatus }),
-    // });
+
   };
 
   if (loading || !interaction) {
@@ -143,7 +121,7 @@ export default function EmailInteractionDetails() {
 
           <div className="space-y-6">
 
-            {/* 🔥 STATUS TOGGLE (API READY) */}
+            {/* STATUS TOGGLE (API READY) */}
             <div className="flex gap-2 bg-white rounded-full p-1 shadow-inner">
               <button
                 onClick={() => handleStatusChange("Confirmed")}

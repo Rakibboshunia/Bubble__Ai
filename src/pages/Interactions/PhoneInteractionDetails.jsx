@@ -1,11 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import StatusBadge from "../../components/StatusBadge";
 
-/**
- * FUTURE API SHAPE (example)
- * GET /interactions/:id
- */
+
 const mockFetchInteraction = (id) =>
   Promise.resolve({
     id,
@@ -27,33 +23,27 @@ export default function PhoneInteractionDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // 🔹 API-driven state
+
   const [interaction, setInteraction] = useState(null);
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(true);
 
-  /**
-   * 🔌 FETCH INTERACTION (API READY)
-   */
+ 
   useEffect(() => {
     setLoading(true);
 
     mockFetchInteraction(id).then((data) => {
       setInteraction(data);
-      setStatus(data.status); // status decoupled
+      setStatus(data.status); 
       setLoading(false);
     });
   }, [id]);
 
-  /**
-   * 🔁 STATUS UPDATE HANDLER (API READY)
-   */
+ 
   const handleStatusChange = (newStatus) => {
     setStatus(newStatus);
 
-    // FUTURE API CALL
-    // PATCH /interactions/:id
-    // fetch(`/api/interactions/${id}`, { method: "PATCH", body: { status: newStatus }})
+
   };
 
   if (loading || !interaction) {

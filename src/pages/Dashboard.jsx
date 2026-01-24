@@ -85,7 +85,7 @@ export default function Interactions() {
   const [bookingInfo, setBookingInfo] = useState("All");
   const [dateSort, setDateSort] = useState("oldest");
 
-  /* 🔥 FILTER + SORT PIPELINE */
+  /* FILTER + SORT PIPELINE */
   const filteredData = data
     // Search
     .filter(
