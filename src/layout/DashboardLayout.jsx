@@ -37,15 +37,12 @@ export default function DashboardLayout() {
         </div>
       )}
 
-      {/* ===== MAIN CONTENT ===== */}
       <div className="flex flex-col flex-1">
 
-        {/* Topbar (Desktop only) */}
         <div className="hidden lg:block">
           <Topbar />
         </div>
 
-        {/* Mobile Header with Hamburger ICON */}
         <div className="flex items-center p-6 bg-[#8BC43D] shadow lg:hidden">
           <button
             onClick={() => setOpen(true)}
@@ -56,7 +53,6 @@ export default function DashboardLayout() {
           </button>
         </div>
 
-        {/* Page content */}
         <main className="flex-1 overflow-y-auto bg-gray-100 p-6">
           <Outlet />
         </main>
