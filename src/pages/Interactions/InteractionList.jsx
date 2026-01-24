@@ -19,7 +19,7 @@ export default function Interactions() {
 
   const navigate = useNavigate();
 
-  /* FILTER LOGIC (THIS IS THE KEY PART) */
+  /* FILTER LOGIC */
   const filteredData = useMemo(() => {
     return DATA.filter((item) => {
       const matchSearch =
@@ -30,7 +30,7 @@ export default function Interactions() {
         category === "all" || item.category === category;
 
       const matchType =
-        type === "all" || item.type === type; // ✅ exact match
+        type === "all" || item.type === type;
 
       return matchSearch && matchCategory && matchType;
     });
@@ -43,32 +43,37 @@ export default function Interactions() {
   };
 
   return (
-    <div className="p-8">
+    <div className="p-4 sm:p-6 lg:p-8">
       {/* HEADER */}
-      <div className="pb-8">
-        <h1 className="text-3xl font-bold tracking-tight">
+      <div className="pb-6 sm:pb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
           Interaction List
         </h1>
-        <p className="text-gray-500 mt-1">
+        <p className="text-gray-500 mt-1 text-sm sm:text-base">
           A centralized list that displays all interaction records for quick tracking and monitoring.
         </p>
       </div>
 
       {/* SEARCH */}
-      <div className="flex justify-between mb-6">
-        <SearchInput value={search} onChange={setSearch} />
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
+        <div className="w-full sm:w-72">
+          <SearchInput value={search} onChange={setSearch} />
+        </div>
       </div>
 
       {/* TABLE */}
-      <div className="bg-white rounded-3xl shadow-xl">
-        <InteractionTable
-          data={filteredData}
-          onView={handleView}
-          category={category}
-          onCategoryChange={setCategory}
-          type={type}
-          onTypeChange={setType}
-        />
+      <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl overflow-x-auto">
+        {/* min-w prevents table breaking on mobile */}
+        <div className="min-w-[720px]">
+          <InteractionTable
+            data={filteredData}
+            onView={handleView}
+            category={category}
+            onCategoryChange={setCategory}
+            type={type}
+            onTypeChange={setType}
+          />
+        </div>
       </div>
     </div>
   );
