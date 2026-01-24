@@ -2,7 +2,7 @@ import {
   AuthLayout,
   AuthCard,
   AuthHeader,
-  OTPInput,
+  OtpInput,
   SubmitButton,
   BackNextButtons,
 } from "../../components/auth";
@@ -18,7 +18,7 @@ export default function VerifyOtp() {
           Please check your email for the 6 digit code."
         />
 
-        <OTPInput />
+        <OtpInput />
 
         <SubmitButton text="Verify" />
 
