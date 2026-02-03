@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-
 const mockFetchInteraction = (id) =>
   Promise.resolve({
     id,
@@ -23,27 +22,22 @@ export default function PhoneInteractionDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-
   const [interaction, setInteraction] = useState(null);
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(true);
 
- 
   useEffect(() => {
     setLoading(true);
 
     mockFetchInteraction(id).then((data) => {
       setInteraction(data);
-      setStatus(data.status); 
+      setStatus(data.status);
       setLoading(false);
     });
   }, [id]);
 
- 
   const handleStatusChange = (newStatus) => {
     setStatus(newStatus);
-
-
   };
 
   if (loading || !interaction) {
@@ -57,16 +51,14 @@ export default function PhoneInteractionDetails() {
   return (
     <div className="p-4 min-h-screen">
       <div className="w-full bg-white rounded-xl shadow-lg min-h-[calc(100vh-96px)] grid grid-cols-1 lg:grid-cols-3 overflow-hidden">
-
         {/* LEFT */}
         <div className="lg:col-span-2 p-10 overflow-y-auto">
-
           {/* Back */}
           <button
             onClick={() => navigate("/interactions")}
-            className="mb-8 text-sm text-white hover:text-black border rounded p-1 bg-[#8BC43D] cursor-pointer"
+            className="mb-8 text-md text-white hover:text-blacktransition border border-gray-300 rounded-lg px-3 py-1 bg-[#8BC43D] cursor-pointer"
           >
-            ← Back to Interaction List
+            ← Back
           </button>
 
           {/* Header */}
@@ -115,10 +107,8 @@ export default function PhoneInteractionDetails() {
         </div>
 
         {/* RIGHT */}
-        <div className="border-l bg-gray-50 p-8 flex flex-col justify-between">
-
+        <div className="border border-gray-100 bg-gray-50 p-8 flex flex-col justify-between">
           <div className="space-y-6">
-
             {/* 🔥 STATUS TOGGLE (API READY) */}
             <div className="flex gap-2 bg-white rounded-full p-1 shadow-inner">
               {["Confirmed", "Declined"].map((s) => (
@@ -140,9 +130,13 @@ export default function PhoneInteractionDetails() {
             </div>
 
             {/* Info */}
-            <div className="rounded-2xl bg-gradient-to-br from-[#8BC43D] to-[#6fa82f] text-white p-6 space-y-2">
-              <p><b>Interaction ID:</b> {interaction.id}</p>
-              <p><b>Interaction type:</b> {interaction.interactionType}</p>
+            <div className="rounded-2xl bg-linear-to-br from-[#8BC43D] to-[#6fa82f] text-white p-6 space-y-2">
+              <p>
+                <b>Interaction ID:</b> {interaction.id}
+              </p>
+              <p>
+                <b>Interaction type:</b> {interaction.interactionType}
+              </p>
             </div>
           </div>
 

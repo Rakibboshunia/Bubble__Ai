@@ -62,9 +62,9 @@ export default function Interactions() {
       </div>
 
       {/* TABLE */}
-      <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl overflow-x-auto">
+      <div className="bg-white rounded-2xl sm:rounded-3xl shadow-xl overflow">
         {/* min-w prevents table breaking on mobile */}
-        <div className="min-w-[720px]">
+        <div className="min-w-180">
           <InteractionTable
             data={filteredData}
             onView={handleView}

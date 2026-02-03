@@ -9,13 +9,13 @@ export default function FAQForm({
   const [answer, setAnswer] = useState(initialData.answer || "");
 
   return (
-    <div className="border rounded-xl p-6 space-y-4 bg-gray-50">
+    <div className="border border-gray-300 rounded-xl p-6 space-y-4 bg-gray-50">
       <div>
         <label className="text-sm font-medium">Question</label>
         <input
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
-          className="w-full mt-2 border rounded-lg px-4 py-3 outline-none"
+          className="w-full mt-2 border border-gray-200 rounded-lg px-4 py-3 outline-none"
           placeholder="Type question"
         />
       </div>
@@ -26,7 +26,7 @@ export default function FAQForm({
           value={answer}
           onChange={(e) => setAnswer(e.target.value)}
           rows={4}
-          className="w-full mt-2 border rounded-lg px-4 py-3 outline-none"
+          className="w-full mt-2 border border-gray-200 rounded-lg px-4 py-3 outline-none"
           placeholder="Type answer"
         />
       </div>

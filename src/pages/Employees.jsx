@@ -69,7 +69,7 @@ export default function Employees() {
               {employees.map((emp, index) => (
                 <tr
                   key={index}
-                  className="border-b last:border-none hover:bg-[#8BC53F]/5 transition"
+                  className="border border-gray-200 last:border-none hover:bg-[#8BC53F]/5 transition"
                 >
                   <td className="px-6 py-5 font-medium text-gray-700">
                     {emp.id}

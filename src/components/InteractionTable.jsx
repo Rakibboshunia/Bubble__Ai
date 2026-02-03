@@ -8,7 +8,7 @@ export default function InteractionTable({
 }) {
   return (
     <table className="w-full text-md">
-      <thead className="bg-gray-50 text-gray-600 border-b">
+      <thead className="bg-gray-50 text-gray-600 border border-gray-200">
         <tr>
           {/* CATEGORY FILTER */}
           <th className="p-6 text-left">
@@ -17,7 +17,7 @@ export default function InteractionTable({
               <select
                 value={category}
                 onChange={(e) => onCategoryChange(e.target.value)}
-                className="text-xs px-1 py-1 rounded-md border outline-none cursor-pointer"
+                className="text-xs px-1 py-1 rounded-md border border-gray-300 outline-none cursor-pointer"
               >
                 <option value="all">All</option>
                 <option value="Phone">Phone</option>
@@ -35,8 +35,7 @@ export default function InteractionTable({
               <select
                 value={type}
                 onChange={(e) => onTypeChange(e.target.value)}
-                className="text-xs px-1 py-1 rounded-md border outline-none cursor-pointer"
-              >
+                className="text-xs px-1 py-1 rounded-md border border-gray-300 outline-none cursor-pointer">
                 <option value="all">All</option>
                 <option value="Incoming Call">Incoming Call</option>
                 <option value="Outgoing Call">Outgoing Call</option>
@@ -55,18 +54,14 @@ export default function InteractionTable({
         {data.map((item, index) => (
           <tr
             key={item.id}
-            className={`border-b hover:bg-gray-50 transition ${
+            className={`border border-gray-200 hover:bg-gray-50 transition ${
               index === data.length - 1 ? "border-b-0" : ""
             }`}
           >
             <td className="p-6">
               <span
-                className={`px-3 py-1 rounded-full text-md font-semibold text-white
-                  ${
-                    item.category === "Phone"
-                      ? "bg-[#8BC43D]"
-                      : "bg-red-500"
-                  }`}
+                className={`px-3 py-1 rounded-full text-md font-                  semibold text-white
+                  ${item.category === "Phone" ? "bg-[#8BC43D]" : "bg-red-500"}`}
               >
                 {item.category}
               </span>
@@ -88,7 +83,7 @@ export default function InteractionTable({
 
         {data.length === 0 && (
           <tr>
-            <td colSpan="4" className="p-10 text-center text-gray-400">
+            <td colSpan="4" className="p-10 text-center text-gray-              400">
               No interactions found
             </td>
           </tr>

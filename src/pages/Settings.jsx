@@ -101,7 +101,7 @@ export default function Settings() {
       </div>
 
       {/* 🔹 CARD */}
-      <div className="bg-white rounded-2xl shadow-xl p-6 overflow-x-auto">
+      <div className="bg-white border border-gray-200 rounded-2xl shadow-xl p-6 overflow-x-auto">
         {/* Top action bar */}
         <div className="mb-6 flex justify-end">
           <button
@@ -113,9 +113,9 @@ export default function Settings() {
         </div>
 
         {/* Table */}
-        <table className="w-full text-sm">
+        <table className="w-full text-sm border-separate border-spacing-y-2">
           <thead>
-            <tr className="text-gray-500 border-b">
+            <tr className="text-gray-500 rounded-xl">
               <th className="py-3 text-left">Label</th>
               <th className="py-3 text-left">API Name</th>
               <th className="py-3 text-left">API Key</th>
@@ -127,7 +127,7 @@ export default function Settings() {
 
           <tbody>
             {data.map((item) => (
-              <tr key={item.id} className="border-b hover:bg-gray-50 transition">
+              <tr key={item.id} className="hover:bg-gray-50 transition">
                 <td className="py-4 font-medium">{item.label}</td>
                 <td className="py-4">{item.name}</td>
                 <td className="py-4 font-mono text-gray-600">

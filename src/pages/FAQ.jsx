@@ -58,7 +58,7 @@ export default function FAQ() {
   return (
     <div className=" max-w-7xl mx-auto">
       {/* HEADER */}
-      <div className="mb-6 border-b pb-6">
+      <div className="mb-6 pb-6">
   <h1 className="pt-5 text-3xl font-semibold">
     Frequently Asked Questions
   </h1>

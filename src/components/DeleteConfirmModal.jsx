@@ -12,14 +12,14 @@ export default function DeleteConfirmModal({ open, onConfirm, onCancel }) {
         <div className="flex justify-center gap-10">
           <button
             onClick={onConfirm}
-            className="border px-6 py-1 rounded-md hover:bg-gray-100 transition"
+            className="border border-gray-300 px-6 py-1 rounded-md hover:bg-gray-100 transition"
           >
             Yes
           </button>
 
           <button
             onClick={onCancel}
-            className="border px-6 py-1 rounded-md hover:bg-gray-100 transition"
+            className="border border-gray-300 px-6 py-1 rounded-md hover:bg-gray-100 transition"
           >
             No
           </button>

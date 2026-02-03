@@ -1,6 +1,6 @@
 export default function DashboardRow({ item }) {
   return (
-    <tr className="hover:bg-[#8BC53F]/5 transition border-b last-border-hidden">
+    <tr className="hover:bg-[#8BC53F]/5 transition border border-gray-200 last:border-b-0">
       <td className="px-6 py-6 font-medium">{item.id}</td>
       <td className="px-6 py-6">{item.name}</td>
       <td className="px-6 py-6 text-gray-600">{item.email}</td>

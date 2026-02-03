@@ -67,9 +67,9 @@ export default function EmailInteractionDetails() {
           {/* Back */}
           <button
             onClick={() => navigate("/interactions")}
-            className="mb-8 text-sm text-white hover:text-black transition border rounded p-1 bg-[#8BC43D] cursor-pointer"
+            className="mb-8 text-md text-white hover:text-black transition border border-gray-300 rounded-lg px-3 py-1 bg-[#8BC43D] cursor-pointer"
           >
-            ← Back to Interactions List
+            ← Back
           </button>
 
           {/* Header */}
@@ -93,7 +93,7 @@ export default function EmailInteractionDetails() {
               {interaction.emails.map((mail, index) => (
                 <div
                   key={index}
-                  className={`rounded-2xl p-6 text-sm border
+                  className={`rounded-2xl p-6 text-sm border border-gray-200
                     ${
                       mail.from === "Agent"
                         ? "bg-gray-50"
@@ -118,6 +118,7 @@ export default function EmailInteractionDetails() {
 
         {/* RIGHT PANEL */}
         <div className="border-l bg-gray-50 p-8 flex flex-col justify-between">
+
 
           <div className="space-y-6">
 
